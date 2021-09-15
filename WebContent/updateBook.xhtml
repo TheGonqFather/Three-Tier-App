@@ -23,8 +23,7 @@
 		and delete a book.</p>
 
 	<a href="homePage.xhtml">Home Page</a> | <a href="createBook.xhtml">Create
-		a Book</a> | <a href="searchBook.xhtml">Search a Book</a> | <a
-		href="deleteBook.xhtml">Delete a Book</a>
+		a Book</a> | <a href="booksList.xhtml">List all Books</a>
 
 	<br></br>
 	<br></br>
@@ -32,18 +31,24 @@
 
 	<p>Please enter the ISBN of the book you would like to update.</p>
 
-	<h:form>
+	<h:form id="editBookForm">
+		<h:outputLabel for="idLabel">BookId:</h:outputLabel>
+		<h:inputText id="bookId" value="#{bookBean.editBookId}"
+			p:readonly="readonly" />
 
-		<label for="isbn">ISBN:</label>
+		<h:outputLabel for="titleLabel">New Title:</h:outputLabel>
+		<h:inputText id="title" value="#{bookBean.title}" />
 
-		<br></br>
+		<h:outputLabel for="authorLabel">New Author:</h:outputLabel>
+		<h:inputText id="author" value="#{bookBean.author}" />
 
-		<h:inputText value="#{bookBean.bookIsbn}" />
+		<h:outputLabel for="isbnLabel">New Isbn:</h:outputLabel>
+		<h:inputText id="isbn" value="#{bookBean.isbn}" />
 
-		<br></br>
-		<br></br>
+		<h:commandButton value="Update"
+			action="#{bookBean.updateBook(bookBean)}" />
 
-		<h:commandButton type="submit" action="#{bookBean.updateBook(bookBean)}"></h:commandButton>
+		<h:outputLink value="booksList.xhtml">View Book Record List</h:outputLink>
 
 	</h:form>
 

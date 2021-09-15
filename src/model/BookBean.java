@@ -7,16 +7,16 @@ import com.jsf.jpa.crud.db.operations.DatabaseOperations;
 
 public class BookBean {
 
-	private int bookid;
+	private Integer bookid;
 	private String title;
 	private String author;
 	private String isbn;
 
-	public int getBookid() {
+	public Integer getBookid() {
 		return bookid;
 	}
 
-	public void setBookid(int bookid) {
+	public void setBookid(Integer bookid) {
 		this.bookid = bookid;
 	}
 
@@ -52,14 +52,10 @@ public class BookBean {
 		return DatabaseOperations.addBook(bookBean.getTitle(), bookBean.getAuthor(), bookBean.getIsbn());
 	}
 
-//	public String findBook(String isbn) {
-//		return DatabaseOperations.findBook(isbn);
-//	}
-
-	public String deleteBook(int bookid) {
-		return DatabaseOperations.deleteBook(bookid);
+	public String deleteBook(Integer bookId) {
+		return DatabaseOperations.deleteBook(bookId);
 	}
-//
+
 //	public String updateBook(BookBean bookBean) {
 //		return DatabaseOperations.updateBook(bookBean.getTitle(), bookBean.getIsbn());
 //	}

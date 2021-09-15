@@ -43,15 +43,16 @@ public class DatabaseOperations {
 		return "booksList.xhtml?faces-redirect=true";
 	}
 
-	public static String deleteBook(int bookid) {
+	public static String deleteBook(Integer bookId) {
 		if (!et.isActive()) {
 			et.begin();
 		}
 
 		Book deleteBook = new Book();
-		em.find(Book.class, bookid);
-		em.remove(deleteBook);
-//		}
+		if (isBookIdPresent(bookId)) {
+			deleteBook.setBookid(bookId);
+			em.remove(em.merge(deleteBook));
+		}
 		et.commit();
 		return "booksList.xhtml?faces-redirect=true";
 	}
@@ -76,4 +77,14 @@ public class DatabaseOperations {
 //		return "booksList.xhtml";
 //	}
 
+	private static boolean isBookIdPresent(Integer bookId) {
+		boolean idResult = false;
+		Query query = em.createQuery("SELECT b FROM Book b WHERE b.bookid = :id");
+		query.setParameter("id", bookId);
+		Book selectedBookId = (Book) query.getSingleResult();
+		if (selectedBookId != null) {
+			idResult = true;
+		}
+		return idResult;
+	}
 }

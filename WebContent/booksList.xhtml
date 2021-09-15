@@ -23,8 +23,7 @@
 		and delete a book.</p>
 
 	<a href="homePage.xhtml">Home Page</a> | <a href="createBook.xhtml">Create
-		a Book</a> | <a href="updateBook.xhtml">Update a Book</a> | <a
-		href="deleteBook.xhtml">Delete a Book</a>
+		a Book</a> | <a href="updateBook.xhtml">Update a Book</a>
 
 	<br></br>
 	<br></br>
@@ -37,26 +36,36 @@
 			<h:outputText value="Book List"></h:outputText>
 		</h2>
 		<h:form id="bookForm">
-			<h:dataTable value="#{bookBean.listAllBooks()}" var="book">
+			<h:dataTable value="#{bookBean.listAllBooks()}" var="bookInfo">
 				<h:column>
-					<f:facet name="header">BookID</f:facet>
-					<h:outputText value="#{book.bookid}" />
+					<f:facet name="header">BookId</f:facet>
+					<h:outputText value="#{bookInfo.bookid}" />
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">Title</f:facet>
-					<h:outputText value="#{book.title}" />
+					<h:outputText value="#{bookInfo.title}" />
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">Author</f:facet>
-					<h:outputText value="#{book.author}" />
+					<h:outputText value="#{bookInfo.author}" />
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">ISBN</f:facet>
-					<h:outputText value="#{book.isbn}" />
+					<h:outputText value="#{bookInfo.isbn}" />
 				</h:column>
+			 <h:column>
+                <f:facet name="header">Update Book:</f:facet>
+                <h:commandButton action="#{bookBean.updateBook()}" value="Update">
+                	<f:param name="selectedBookId" value="#{bookInfo.bookid}" />
+                </h:commandButton>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Delete Book:</f:facet>
+                <h:commandButton action="#{bookBean.deleteBook(bookInfo.bookid)}" value="Delete" />
+            </h:column>
 			</h:dataTable>
 			<br></br>
 			<br></br>
