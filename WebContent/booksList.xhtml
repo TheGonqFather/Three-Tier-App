@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+
+	<title>Project01 - List Books</title>
+
+</h:head>
+
+<h:body>
+
+	<h1>List Books</h1>
+
+	<hr />
+
+	<p>You are currently on the List Books page.</p>
+
+	<hr />
+
+	<p>Below are links to the home page, create a book, update a book,
+		and delete a book.</p>
+
+	<a href="homePage.xhtml">Home Page</a> | <a href="createBook.xhtml">Create
+		a Book</a> | <a href="updateBook.xhtml">Update a Book</a> | <a
+		href="deleteBook.xhtml">Delete a Book</a>
+
+	<br></br>
+	<br></br>
+	<hr />
+
+	<p>Below is a list of all the books in the library database.</p>
+
+	<center>
+		<h2>
+			<h:outputText value="Book List"></h:outputText>
+		</h2>
+		<h:form id="bookForm">
+			<h:dataTable value="#{bookBean.listAllBooks()}" var="book">
+				<h:column>
+					<f:facet name="header">BookID</f:facet>
+					<h:outputText value="#{book.bookId}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Title</f:facet>
+					<h:outputText value="#{book.title}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Author</f:facet>
+					<h:outputText value="#{book.author}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">ISBN</f:facet>
+					<h:outputText value="#{book.isbn}" />
+				</h:column>
+			</h:dataTable>
+			<br></br>
+			<br></br>
+			<h:commandButton action="createBook.xhtml?faces-redirect=true"
+				value="Create New Book" />
+		</h:form>
+	</center>
+
+</h:body>
+
+</html>
