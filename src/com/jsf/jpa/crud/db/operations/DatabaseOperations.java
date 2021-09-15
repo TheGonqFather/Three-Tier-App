@@ -34,68 +34,46 @@ public class DatabaseOperations {
 		}
 
 		Book newBook = new Book();
-//		newBook.setBookid(getMaxBookId());
 		newBook.setTitle(title);
 		newBook.setAuthor(author);
 		newBook.setIsbn(isbn);
 
 		em.persist(newBook);
 		et.commit();
-		return "homePage.xhtml?faces-redirect=true";
+		return "booksList.xhtml?faces-redirect=true";
 	}
 
-	public static String deleteBook(String isbn) {
+	public static String deleteBook(int bookid) {
 		if (!et.isActive()) {
 			et.begin();
 		}
 
 		Book deleteBook = new Book();
-		if (isBookIdPresent(isbn)) {
-			deleteBook.setIsbn(isbn);
-			em.remove(em.merge(deleteBook));
-		}
-		et.commit();
-		return "homePage.xhtml?faces-redirect=true";
-	}
-
-	public static String updateBook(String isbn, String title) {
-		if (!et.isActive()) {
-			et.begin();
-		}
-
-		if (isBookIdPresent(isbn)) {
-			Query query = em.createQuery("UPDATE Book b SET b.title=:name WHERE b.isbn= :isbn");
-			query.setParameter("isbn", isbn);
-			query.setParameter("title", title);
-			int updateCount = query.executeUpdate();
-			if (updateCount > 0) {
-				System.out.println("Record For BookId: " + isbn + " Is Updated");
-			}
-		}
-		et.commit();
-		FacesContext.getCurrentInstance().addMessage("editBookForm: bookId",
-				new FacesMessage("Book Record #" + isbn + " Is Successfully Updated In Db"));
-		return "booksList.xhtml";
-	}
-
-//	private static int getMaxBookId() {
-//		int maxBookId = 1;
-//		Query query = em.createQuery("SELECT MAX(b.bookId)+1 FROM Book b");
-//		if (query.getSingleResult() != null) {
-//			maxBookId = (Integer) query.getSingleResult();
+		em.find(Book.class, bookid);
+		em.remove(deleteBook);
 //		}
-//		return maxBookId;
-//	}
-
-	private static boolean isBookIdPresent(String isbn) {
-		boolean isbnResult = false;
-		Query query = em.createQuery("SELECT b FROM Book b WHERE b.isbn = :isbn");
-		query.setParameter("isbn", isbn);
-		Book selectedBookIsbn = (Book) query.getSingleResult();
-		if (selectedBookIsbn != null) {
-			isbnResult = true;
-		}
-		return isbnResult;
+		et.commit();
+		return "booksList.xhtml?faces-redirect=true";
 	}
+
+//	public static String updateBook(String isbn, String title) {
+//		if (!et.isActive()) {
+//			et.begin();
+//		}
+//
+//		if (isBookIdPresent(isbn)) {
+//			Query query = em.createQuery("UPDATE Book b SET b.title=:name WHERE b.isbn= :isbn");
+//			query.setParameter("isbn", isbn);
+//			query.setParameter("title", title);
+//			int updateCount = query.executeUpdate();
+//			if (updateCount > 0) {
+//				System.out.println("Record For BookId: " + isbn + " Is Updated");
+//			}
+//		}
+//		et.commit();
+//		FacesContext.getCurrentInstance().addMessage("editBookForm: bookId",
+//				new FacesMessage("Book Record #" + isbn + " Is Successfully Updated In Db"));
+//		return "booksList.xhtml";
+//	}
 
 }

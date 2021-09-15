@@ -56,8 +56,8 @@ public class BookBean {
 //		return DatabaseOperations.findBook(isbn);
 //	}
 
-	public String deleteBook(String isbn) {
-		return DatabaseOperations.deleteBook(isbn);
+	public String deleteBook(int bookid) {
+		return DatabaseOperations.deleteBook(bookid);
 	}
 //
 //	public String updateBook(BookBean bookBean) {

@@ -7,7 +7,7 @@ import javax.persistence.*;
  * The persistent class for the book database table.
  * 
  */
-@Entity(name = "book")
+@Entity
 @Table(name = "book")
 //@NamedQuery(name="Book.findAll", query="SELECT b FROM Book b")
 public class Book implements Serializable {

@@ -34,16 +34,16 @@
 
 	<h:form>
 
-		<label for="isbn">ISBN:</label>
-
+		<h:outputLabel for="bookid">Bookid:</h:outputLabel>
 		<br></br>
 
-		<h:inputText value="#{bookBean.isbn}" />
+		<h:inputText id="book-id" value="#{bookBean.bookid}" required="true"
+			requiredMessage="ID Cannot Be Blank" />
 
 		<br></br>
 		<br></br>
 
-		<h:commandButton type="submit" action="#{bookBean.deleteBook(isbn)}"></h:commandButton>
+		<h:commandButton value="Submit" action="#{bookBean.deleteBook(bookBean)}" />
 	</h:form>
 
 </h:body>
