@@ -1,6 +1,6 @@
 # Three-Tier-App
 
-A three-tier application.
+A three-tier application using the MVC design pattern.
 
 JavaServer Faces (JSF) was used for the user interface.
 
