@@ -57,8 +57,8 @@ public class BookBean {
 		return dboi.deleteBook(bookId);
 	}
 
-	public String updateBook(BookBean bookBean) {
-		return dboi.updateBook(bookBean.getBookid(), bookBean.getTitle());
-	}
+//	public String updateBook(BookBean bookBean) {
+//		return dboi.updateBook(bookBean.getBookid(), bookBean.getTitle());
+//	}
 
 }

@@ -10,6 +10,6 @@ public interface DatabaseOperations {
 
 	public String deleteBook(Integer bookId);
 
-	public String updateBook(Integer bookId, String title);
+//	public String updateBook(Integer bookId, String title);
 
 }

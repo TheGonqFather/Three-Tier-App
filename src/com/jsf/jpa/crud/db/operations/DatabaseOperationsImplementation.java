@@ -11,13 +11,13 @@ import javax.persistence.Query;
 import model.BookBean;
 import model.Book;
 
-public class DatabaseOperationsImplementation implements DatabaseOperations{
+public class DatabaseOperationsImplementation implements DatabaseOperations {
 
-	private static final String PERSISTENCE_UNIT_NAME = "ThreeTierApp";
-	private static EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME)
-			.createEntityManager();
-	private static EntityTransaction et = em.getTransaction();
+	private final String PERSISTENCE_UNIT_NAME = "ThreeTierApp";
+	private EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME).createEntityManager();
+	private EntityTransaction et = em.getTransaction();
 
+	@Override
 	public List listAllBooks() {
 		Query query = em.createQuery("SELECT b FROM Book b");
 		List bookList = query.getResultList();
@@ -28,6 +28,7 @@ public class DatabaseOperationsImplementation implements DatabaseOperations{
 		}
 	}
 
+	@Override
 	public String addBook(String title, String author, String isbn) {
 		if (!et.isActive()) {
 			et.begin();
@@ -43,6 +44,7 @@ public class DatabaseOperationsImplementation implements DatabaseOperations{
 		return "booksList.xhtml?faces-redirect=true";
 	}
 
+	@Override
 	public String deleteBook(Integer bookId) {
 		if (!et.isActive()) {
 			et.begin();
@@ -57,27 +59,28 @@ public class DatabaseOperationsImplementation implements DatabaseOperations{
 		return "booksList.xhtml?faces-redirect=true";
 	}
 
-	public String updateBook(Integer bookId, String title) {
-		if (!et.isActive()) {
-			et.begin();
-		}
+//	@Override
+//	public String updateBook(Integer bookId, String title) {
+//		if (!et.isActive()) {
+//			et.begin();
+//		}
+//
+//		if (isBookIdPresent(bookId)) {
+//			Query query = em.createQuery("UPDATE Book b SET b.title=:title WHERE b.bookid= :bookid");
+//			query.setParameter("bookid", bookId);
+//			query.setParameter("title", title);
+//			int updateCount = query.executeUpdate();
+//			if (updateCount > 0) {
+//				System.out.println("Record For BookId: " + bookId + " Is Updated");
+//			}
+//		}
+//		et.commit();
+//		FacesContext.getCurrentInstance().addMessage("editBookForm: bookId",
+//				new FacesMessage("Book Record #" + bookId + " Is Successfully Updated In Db"));
+//		return "booksList.xhtml";
+//	}
 
-		if (isBookIdPresent(bookId)) {
-			Query query = em.createQuery("UPDATE Book b SET b.title=:title WHERE b.bookid= :bookid");
-			query.setParameter("bookid", bookId);
-			query.setParameter("title", title);
-			int updateCount = query.executeUpdate();
-			if (updateCount > 0) {
-				System.out.println("Record For BookId: " + bookId + " Is Updated");
-			}
-		}
-		et.commit();
-		FacesContext.getCurrentInstance().addMessage("editBookForm: bookId",
-				new FacesMessage("Book Record #" + bookId + " Is Successfully Updated In Db"));
-		return "booksList.xhtml";
-	}
-
-	private static boolean isBookIdPresent(Integer bookId) {
+	private boolean isBookIdPresent(Integer bookId) {
 		boolean idResult = false;
 		Query query = em.createQuery("SELECT b FROM Book b WHERE b.bookid = :id");
 		query.setParameter("id", bookId);
