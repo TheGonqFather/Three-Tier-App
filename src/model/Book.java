@@ -15,7 +15,6 @@ public class Book implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	@Column(name = "bookid")
 	private Integer bookid;
 

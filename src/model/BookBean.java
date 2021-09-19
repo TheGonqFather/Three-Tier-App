@@ -3,7 +3,7 @@ package model;
 import java.util.List;
 
 //import javax.faces.context.FacesContext;
-import com.jsf.jpa.crud.db.operations.DatabaseOperations;
+import com.jsf.jpa.crud.db.operations.DatabaseOperationsImplementation;
 
 public class BookBean {
 
@@ -11,6 +11,7 @@ public class BookBean {
 	private String title;
 	private String author;
 	private String isbn;
+	private DatabaseOperationsImplementation dboi;
 
 	public Integer getBookid() {
 		return bookid;
@@ -45,19 +46,19 @@ public class BookBean {
 	}
 
 	public List listAllBooks() {
-		return DatabaseOperations.listAllBooks();
+		return dboi.listAllBooks();
 	}
 
 	public String addBook(BookBean bookBean) {
-		return DatabaseOperations.addBook(bookBean.getTitle(), bookBean.getAuthor(), bookBean.getIsbn());
+		return dboi.addBook(bookBean.getTitle(), bookBean.getAuthor(), bookBean.getIsbn());
 	}
 
 	public String deleteBook(Integer bookId) {
-		return DatabaseOperations.deleteBook(bookId);
+		return dboi.deleteBook(bookId);
 	}
 
-//	public String updateBook(BookBean bookBean) {
-//		return DatabaseOperations.updateBook(bookBean.getTitle(), bookBean.getIsbn());
-//	}
+	public String updateBook(BookBean bookBean) {
+		return dboi.updateBook(bookBean.getBookid(), bookBean.getTitle());
+	}
 
 }
